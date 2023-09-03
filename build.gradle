@@ -3,6 +3,7 @@ buildscript {
     apply from: "$rootDir/gradle/versions.gradle"
 
     repositories {
+        maven { url 'https://jitpack.io' }
         mavenLocal()
         mavenCentral()
         google()
@@ -21,13 +22,13 @@ plugins {
 }
 
 apply from: "$rootDir/gradle/versions.gradle"
-apply from: "${rootDir}/gradle/publish-root.gradle"
 
 allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
         google()
+        maven { url 'https://jitpack.io' }
         maven { url "https://dl.bintray.com/korlibs/korlibs/" }
     }
 }

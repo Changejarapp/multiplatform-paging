@@ -29,3 +29,6 @@ actual suspend fun <T : Any, R : Any> PagingData<T>.flatMap(transform: suspend (
         transform(it)
     } as PagingData<R>
 }
+actual suspend fun <T : Any> PagingData<T>.insertPagingSeparators(predicate: suspend (before: T?, after: T?) -> T?): PagingData<T> {
+    return this // todo replace this
+}

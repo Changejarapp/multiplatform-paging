@@ -2,6 +2,7 @@ package com.kuuurt.paging.multiplatform
 
 import androidx.paging.filter
 import androidx.paging.flatMap
+import androidx.paging.insertSeparators
 import androidx.paging.map
 import androidx.paging.PagingData as AndroidXPagingData
 
@@ -18,6 +19,13 @@ actual suspend fun <T : Any> PagingData<T>.filter(predicate: suspend (T) -> Bool
     return this.filter(predicate)
 }
 
+actual suspend fun <T : Any> PagingData<T>.insertPagingSeparators(
+    predicate: suspend (before: T?, after: T?) -> T?
+): PagingData<T> {
+    return this.insertSeparators { before, after ->
+        predicate(before, after)
+    }
+}
 actual suspend fun <T : Any, R : Any> PagingData<T>.map(transform: suspend (T) -> R): PagingData<R> {
     return this.map(transform)
 }
