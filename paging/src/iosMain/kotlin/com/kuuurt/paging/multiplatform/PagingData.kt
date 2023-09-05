@@ -35,12 +35,17 @@ actual suspend fun <T : Any> PagingData<T>.insertPagingSeparators(predicate: sus
 
     var previous: T? = null
     while (listIterator.hasNext()) {
-        previous = listIterator.previous()
-        val next = listIterator.next()
+        previous = if (listIterator.hasPrevious()) {
+            val prev = listIterator.previous()
+            listIterator.next()
+            prev
+        } else null
 
+        val next = listIterator.next()
         val header = predicate(previous, next)
         header?.let {
             listIterator.add(it)
+            listIterator.next()
         }
     }
     return list.toPagingData()
