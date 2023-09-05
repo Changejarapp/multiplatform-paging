@@ -43,5 +43,5 @@ actual suspend fun <T : Any> PagingData<T>.insertPagingSeparators(predicate: sus
             listIterator.add(it)
         }
     }
-    return list as PagingData<T>
+    return list.toPagingData()
 }
