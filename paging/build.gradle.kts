@@ -6,7 +6,7 @@ plugins {
 apply(from = "$rootDir/gradle/versions.gradle")
 
 group = "com.jar.internal.library.paging"
-version = "0.6.7"
+version = "0.6.8"
 
 val MP_PAGING_VERSION = ext["MP_PAGING_VERSION"]
 val COROUTINES_VERSION = ext["COROUTINES_VERSION"]
