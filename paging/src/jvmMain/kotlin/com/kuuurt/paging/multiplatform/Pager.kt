@@ -25,7 +25,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private var source: PagingSource<K, V>? = null
 
     actual val pagingData: Flow<PagingData<V>> = AndroidXPager(
-        config = config,
+        config = config.androidConfig,
         pagingSourceFactory = {
             PagingSource(
                 initialKey,
