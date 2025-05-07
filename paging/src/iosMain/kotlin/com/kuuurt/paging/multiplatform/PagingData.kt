@@ -29,25 +29,25 @@ actual suspend fun <T : Any, R : Any> PagingData<T>.flatMap(transform: suspend (
         transform(it)
     } as PagingData<R>
 }
+
 actual suspend fun <T : Any> PagingData<T>.insertPagingSeparators(predicate: suspend (before: T?, after: T?) -> T?): PagingData<T> {
     val list = (this@insertPagingSeparators as List<T>).toMutableList()
     val listIterator = list.listIterator()
-
     var previous: T? = null
     while (listIterator.hasNext()) {
         previous = if (listIterator.hasPrevious()) {
-            val prev = listIterator.previous()
-            listIterator.next()
+            val prev = listIterator.previous() // pre
+            listIterator.next() // curr
             prev
         } else null
-
-        val next = if (listIterator.hasNext()) listIterator.next() else null
+        val next = if (listIterator.hasNext()) { listIterator.next() } else null //next
+        if(next!=null && listIterator.hasPrevious()) listIterator.previous() //curr
         val header = predicate(previous, next)
         header?.let {
             listIterator.add(it)
-            if (listIterator.hasNext())
-            listIterator.next()
+
         }
+        if (listIterator.hasNext()) listIterator.next() //next
     }
     return list.toPagingData()
 }
