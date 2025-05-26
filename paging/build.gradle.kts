@@ -7,7 +7,7 @@ plugins {
 
 
 group = "com.jar.internal.library.paging"
-version = "0.7.5"
+version = "0.7.1"
 
 val frameworkName = "MultiplatformPaging"
 
