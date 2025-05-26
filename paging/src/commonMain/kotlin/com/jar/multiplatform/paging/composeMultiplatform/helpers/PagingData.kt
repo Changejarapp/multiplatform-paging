@@ -1,9 +1,7 @@
-package com.jar.multiplatform.paging.utils
+package com.jar.multiplatform.paging.composeMultiplatform.helpers
 
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
-
-typealias JarMultiplatformPagingData<T> = PagingData<T>
 
 fun <T : Any> PagingData<T>.insertPagingSeparators(
     predicate: suspend (before: T?, after: T?) -> T?

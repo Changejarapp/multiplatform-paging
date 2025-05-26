@@ -1,4 +1,4 @@
-package com.jar.multiplatform.paging.composeHelpers
+package com.jar.multiplatform.paging.composeMultiplatform.ui
 
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable

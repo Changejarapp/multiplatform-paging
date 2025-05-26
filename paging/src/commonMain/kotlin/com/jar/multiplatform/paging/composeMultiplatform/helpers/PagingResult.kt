@@ -1,4 +1,4 @@
-package com.jar.multiplatform.paging.utils
+package com.jar.multiplatform.paging.composeMultiplatform.helpers
 
 data class PagingResult<K, V>(
     val items: List<V>,

@@ -1,9 +1,8 @@
-package com.jar.app.core_compose_ui.shared.pagingUtils
+package com.jar.multiplatform.paging.composeMultiplatform.helpers
 
 import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.PagingState
-import com.jar.multiplatform.paging.utils.PagingResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @ExperimentalCoroutinesApi
 class Pager<K : Any, V : Any> constructor(
     clientScope: CoroutineScope,
-    config: com.jar.multiplatform.paging.utils.PagingConfig,
+    config: PagingConfig,
     initialKey: K,
     getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {

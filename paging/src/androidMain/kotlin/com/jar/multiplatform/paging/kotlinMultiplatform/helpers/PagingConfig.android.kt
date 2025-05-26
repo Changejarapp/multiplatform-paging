@@ -1,16 +1,15 @@
-package com.jar.multiplatform.paging.utils
+package com.jar.multiplatform.paging.kotlinMultiplatform.helpers
+import androidx.paging.PagingConfig as AndroidXPagingConfig
 
-import androidx.paging.PagingConfig
-
-class PagingConfig constructor(
+actual class MultiplatformPagingConfig actual constructor(
     pageSize: Int,
-    prefetchDistance: Int = 10,
+    prefetchDistance: Int,
     enablePlaceholders: Boolean,
     initialLoadSize: Int,
-    maxSize: Int = Int.MAX_VALUE,
-    jumpThreshold: Int = Int.MIN_VALUE
+    maxSize: Int,
+    jumpThreshold: Int
 ) {
-    val androidConfig: PagingConfig = PagingConfig(
+    val androidConfig: AndroidXPagingConfig = AndroidXPagingConfig(
         pageSize = pageSize,
         prefetchDistance = prefetchDistance,
         enablePlaceholders = enablePlaceholders,

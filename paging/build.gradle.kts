@@ -7,7 +7,7 @@ plugins {
 
 
 group = "com.jar.internal.library.paging"
-version = "0.7.2"
+version = "0.7.5"
 
 val frameworkName = "MultiplatformPaging"
 
@@ -54,7 +54,25 @@ kotlin {
         }
 
         androidMain.dependencies { }
+
+        val iosMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
     }
+
 }
 
 val gprUser: String? by project
