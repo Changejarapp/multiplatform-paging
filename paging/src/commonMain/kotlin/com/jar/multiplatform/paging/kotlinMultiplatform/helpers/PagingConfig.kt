@@ -1,13 +1,18 @@
 package com.jar.multiplatform.paging.kotlinMultiplatform.helpers
 
-import androidx.paging.PagingConfig
-
 
 expect class MultiplatformPagingConfig(
-    pageSize: Int,
-    prefetchDistance: Int = 10,
+    pageSize: Int = K.MAX_SIZE_UNBOUNDED,
+    prefetchDistance: Int = pageSize,
     enablePlaceholders: Boolean,
-    initialLoadSize: Int,
-    maxSize: Int = Int.MAX_VALUE,
-    jumpThreshold: Int = Int.MIN_VALUE
+    initialLoadSize: Int = pageSize * K.DEFAULT_INITIAL_PAGE_MULTIPLIER,
+    maxSize: Int = K.MAX_SIZE_UNBOUNDED,
+    jumpThreshold: Int = K.COUNT_UNDEFINED
 )
+
+
+object K {
+    internal const val MAX_SIZE_UNBOUNDED: Int = Int.MAX_VALUE
+    internal const val DEFAULT_INITIAL_PAGE_MULTIPLIER = 3
+    internal const val COUNT_UNDEFINED: Int = Int.MIN_VALUE
+}
