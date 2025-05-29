@@ -1,44 +1,78 @@
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
     id("maven-publish")
+    alias(libs.plugins.compose.compiler)
 }
 
-apply(from = "$rootDir/gradle/versions.gradle")
 
 group = "com.jar.internal.library.paging"
-version = "0.7.2"
-
-val MP_PAGING_VERSION = ext["MP_PAGING_VERSION"]
-val COROUTINES_VERSION = ext["COROUTINES_VERSION"]
+version = "0.7.3"
 
 val frameworkName = "MultiplatformPaging"
 
+android {
+    namespace = "com.jar.internal.library.paging"
+    compileSdk = 34
+    defaultConfig {
+        minSdk = 21
+        targetSdk = 34
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        compose = true
+    }
+}
+
 kotlin {
-    ios()
-    iosSimulatorArm64()
-    jvm { compilations.all { kotlinOptions.jvmTarget = "11" } }
-
-    val commonMain by sourceSets.getting {
-        dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
         }
     }
-
-    val jvmMain by sourceSets.getting {
-        dependencies {
-            api("androidx.paging:paging-common-ktx:3.1.1")
-        }
+    androidTarget {
+        publishLibraryVariants("release")
+        publishLibraryVariantsGroupedByFlavor = true
     }
 
-    val iosMain by sourceSets.getting
-    val iosX64Main by sourceSets.getting
-    val iosTest by sourceSets.getting
-    val iosSimulatorArm64Main by sourceSets.getting
-    val iosSimulatorArm64Test by sourceSets.getting
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    )
 
-    // Set up dependencies between the source sets
-    iosSimulatorArm64Main.dependsOn(iosMain)
-    iosSimulatorArm64Test.dependsOn(iosTest)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.bundles.jetbrains.compose)
+            implementation(libs.paging.common)
+            implementation(libs.kotlinx.coroutines.core)
+        }
+
+        androidMain.dependencies { }
+
+        val iosMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+
+    }
+
 }
 
 val gprUser: String? by project

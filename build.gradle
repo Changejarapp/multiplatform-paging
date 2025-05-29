@@ -1,35 +1,16 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    apply from: "$rootDir/gradle/versions.gradle"
-
-    repositories {
-        maven { url 'https://jitpack.io' }
-        mavenLocal()
-        mavenCentral()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
 plugins {
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    alias(libs.plugins.androidLibrary) apply(false)
+    alias(libs.plugins.kotlinMultiplatform).apply(false)
+    id("maven-publish")
+    alias(libs.plugins.compose.compiler) apply false
 }
-
-apply from: "$rootDir/gradle/versions.gradle"
 
 allprojects {
     repositories {
+        gradlePluginPortal()
         mavenLocal()
         mavenCentral()
         google()
-        maven { url 'https://jitpack.io' }
-        maven { url "https://dl.bintray.com/korlibs/korlibs/" }
     }
 }
 
