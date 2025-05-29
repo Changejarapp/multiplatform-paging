@@ -26,6 +26,10 @@ actual class MultiplatformPager<K : Any, V : Any> actual constructor(
     val hasNextPage: Boolean
         get() = _hasNextPage.value
 
+    private val _totalSize = MutableStateFlow(0)
+    val totalSize: Int
+        get() = _totalSize.value
+
     private val currentPagingResult: MutableStateFlow<MultiplatformPagingResult<K, V>?> = MutableStateFlow(null)
 
     init {
@@ -73,6 +77,7 @@ actual class MultiplatformPager<K : Any, V : Any> actual constructor(
                 _hasNextPage.value = newPagingResult.items.size >= config.pageSize
                 currentPagingResult.value = newPagingResult
                 _pagingState.value = PagingState.Success
+                _totalSize.value = _pagingData.value?.size ?: 0
             }
         }
     }
@@ -80,6 +85,10 @@ actual class MultiplatformPager<K : Any, V : Any> actual constructor(
     enum class LoadDirection {
         PREVIOUS,
         NEXT
+    }
+
+    fun getConfigPageSize(): Int {
+        return config.pageSize
     }
 }
 
